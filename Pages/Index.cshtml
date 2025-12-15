@@ -1,111 +1,231 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home Page";
 }
 
-<section class="hero-banner">
+<section id="home" class="hero-section">
     <div class="hero-content">
-        <h1>LEAH BOLASCO</h1>
-        <h2>UI/UX DESIGNER · FRONT-END DEVELOPER · CREATIVE MAKER</h2>
-
-        <p class="hero-sub">
-            Passionate about crafting intuitive digital experiences and designing pastel, book-themed collectibles.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="/Portfolio" class="btn-primary">View Portfolio</a>
-            <a href="/Product" class="btn-secondary">Shop Pins & Stickers</a>
+        <div class="hero-text">
+            <h1 class="hero-title">LEAH MARIE BOLASCO</h1>
+            <h2 class="hero-subtitle">UI/UX Designer · Front-End Developer</h2>
+            <p class="hero-description">
+                I create digital experiences that are both beautiful and intuitive.
+                With a passion for clean design and user-centered thinking, I build
+                interfaces that people actually enjoy using.
+            </p>
+            <a href="#projects" class="cta-button">View My Work</a>
         </div>
-    </div>
-
-    <div class="hero-image">
-        <img src="~/Images/pfpbanner.png" alt="Profile Image">
+        <div class="hero-image">
+            <img src="~/Images/pfpbanner.png" alt="Leah Bolasco" class="profile-picture" />
+        </div>
     </div>
 </section>
 
+<section id="about" class="about-section">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <p class="about-text">
+                Hi! I'm a UI/UX Designer and Front-End Developer who loves designing intuitive digital interfaces.
+                I enjoy working with pastel colors and creating layouts that are both pretty and practical.
+            </p>
+            <p class="about-text">
+                When I'm not designing, you'll find me exploring new places and trying new experiences,
+                getting lost in a good movie, or diving into the latest anime series. I'm always up for an adventure!
+            </p>
+        </div>
+    </div>
+</section>
 
-<!-- FEATURED PROJECTS -->
-<section class="projects-section">
-    <h2>Recent Projects</h2>
-    <p class="section-desc">Here are some of the digital experiences I've built recently.</p>
+<section id="projects" class="projects-section">
+    <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
 
-    <div class="projects-grid">
-
-        <!-- PROJECT 1 -->
         <div class="project-card">
-            <img src="~/Images/kookies.png" />
-            <h3>Kookie – E-commerce Website</h3>
-            <p>A clean and modern cake shop e-commerce site with cart, product pages, and checkout UI.</p>
-            <a href="#" class="project-link">Live Demo</a>
+            <div class="project-image">
+                <img src="~/Images/kookies.png" alt="Kookie E-commerce Website" />
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">Kookie – <i>E-commerce Website </i></h3>
+                <p class="project-description">
+                    A clean and modern online cookie shop where customers can browse products, add items to their cart,
+                    and go through a smooth checkout process. Built with a focus on easy navigation and mobile-friendly design.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML/CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">E-commerce UI</span>
+                    <span class="tag">Responsive Design</span>
+                </div>
+                <a href="https://elainiez.github.io/Kookies/" target="_blank" class="project-link">View Live Demo →</a>
+            </div>
         </div>
 
-           <!-- PROJECT 2 -->
+        <div class="project-card reverse">
+            <div class="project-image">
+                <img src="~/Images/Hangman.png" alt="Halloween Hangman App" />
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">Halloween Hangman – <i>Mobile Game</i></h3>
+                <p class="project-description">
+                    A spooky-themed Hangman game designed for mobile devices. Features a Halloween aesthetic
+                    with smooth touch interactions across five different categories: Halloween, Animals, Food,
+                    Space, and Technology.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Mobile UI</span>
+                    <span class="tag">Game Design</span>
+                    <span class="tag">Animations</span>
+                </div>
+                <a href="https://github.com/KeiKaruizawa/MOBAPP_Hangman" target="_blank" class="project-link">Try Game →</a>
+            </div>
+        </div>
+
         <div class="project-card">
-            <img src="https://via.placeholder.com/400x250?text=Hangman+App" />
-            <h3>Halloween Hangman (Mobile App)</h3>
-            <p>A spooky-themed Hangman game built with mobile UI workflows and animations.</p>
-            <a href="#" class="project-link">View App Screenshots</a>
+            <div class="project-image">
+                <img src="~/Images/reboot.png" alt="Reboot Gadget Figma Prototype" />
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">Reboot Gadget – <i>Figma Prototype</i> </h3>
+                <p class="project-description">
+                    An e-commerce platform for buying and selling second-hand devices. Created as a fully interactive
+                    prototype in Figma with clickable elements and transitions between screens. You can click through
+                    the entire shopping experience just like a real website.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Figma</span>
+                    <span class="tag">Interactive Prototype</span>
+                    <span class="tag">E-commerce</span>
+                    <span class="tag">UX Design</span>
+                </div>
+                <a href="https://www.figma.com/proto/P1YeFzj7WTraAtzDuPg3fk/Gr.1-Reboot-Gadget?node-id=80-2&p=f&t=6XlwxXFMQpJilGSA-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=80%3A2&show-proto-sidebar=1"
+                   target="_blank" class="project-link">Try the Prototype →</a>
+            </div>
         </div>
-
-        <!-- PROJECT 3 -->
-        <div class="project-card">
-            <img src="~/Images/reboot.png" />
-            <h3>Reboot Gadget(Figma)</h3>
-            <p>explain that its an ecommerce product for 2nd hand devices. using figma with i forgot the term but its like you can move and click elements?</p>
-            <a href="#" class="project-link">Try the Game</a>
-        </div>
-    </div>
-
-    <div class="section-btn">
-        <a href="/Portfolio" class="btn-secondary">View All Projects</a>
     </div>
 </section>
 
-
-<!-- SHOP PREVIEW -->
-<section class="shop-section">
-    <h2>New in the Shop</h2>
-    <p class="section-desc">Pastel book-themed collectibles for design lovers.</p>
-
-    <div class="shop-grid">
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x300?text=Product+1" />
-            <h3>Book Lover Pin</h3>
-            <p>$12</p>
+<section id="skills" class="skills-section">
+    <div class="container">
+        <h2 class="section-title">Skills & Tools</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="bi bi-palette"></i>
+                </div>
+                <h3>UI/UX Design</h3>
+                <p>Figma, Canva, Photoshop, Inkscape</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="bi bi-code-slash"></i>
+                </div>
+                <h3>Web Development</h3>
+                <p>HTML, CSS, JavaScript</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="bi bi-gear-fill"></i>
+                </div>
+                <h3>Back-End</h3>
+                <p>C#, ASP.NET Core</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="bi bi-phone"></i>
+                </div>
+                <h3>Responsive Design</h3>
+                <p>Mobile-First, Cross-Browser</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="bi bi-magic"></i>
+                </div>
+                <h3>Prototyping</h3>
+                <p>Interactive Mockups, User Flows</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="bi bi-image"></i>
+                </div>
+                <h3>Visual Design</h3>
+                <p>Color Theory, Typography, Layouts</p>
+            </div>
         </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x300?text=Product+2" />
-            <h3>"Chapter One" Sticker Pack</h3>
-            <p>$8</p>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x300?text=Product+3" />
-            <h3>Pastel Bookmark Patch</h3>
-            <p>$10</p>
-        </div>
-    </div>
-
-    <div class="section-btn">
-        <a href="/Shop" class="btn-secondary">Explore the Full Shop</a>
     </div>
 </section>
 
-<section class="about-section">
-    <h2>About Me</h2>
-    <p>
-        I am a UI/UX Designer and Front-End Developer with a passion for pastel visuals,
-        book-themed creations, and intuitive digital interfaces.
-    </p>
+<section id="contact" class="contact-section">
+    <div class="container">
+        <h2 class="section-title">Let's Work Together</h2>
+        <p class="contact-intro">Have a project in mind or just want to say hi? Feel free to reach out!</p>
 
-    <div class="skills-list">
-        <span>Figma</span>
-        <span>HTML/CSS</span>
-        <span>JavaScript</span>
-        <span>C# ASP.NET Core</span>
-        <span>Responsive Design</span>
-        <span>Wireframing</span>
+        <form method="post" class="contact-form">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Send Message</button>
+        </form>
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="form-message">@Model.Message</div>
+        }
     </div>
 </section>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 class="footer-heading">Get in touch</h3>
+
+            <div class="footer-contact">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <a href="mailto:leahmariebolasco@email.com">leahmariebolasco@email.com</a>
+                </div>
+
+                <div class="contact-item">
+                    <h4>Phone Number</h4>
+                    <a href="tel:+639616075774">+63 961 607 5774</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-heading">Social Media</h3>
+            <div class="social-icons">
+                <a href="https://github.com/KeiKaruizawa" target="_blank" class="social-icon" aria-label="GitHub">
+                    <i class="bi bi-github"></i>
+                </a>
+                <a href="https://x.com/KaruizawaKei17" target="_blank" class="social-icon" aria-label="Twitter">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/leah-bolasco-816b25295/" target="_blank" class="social-icon" aria-label="LinkedIn">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-heading">Location</h3>
+            <div class="footer-address">
+                <h4>Based in</h4>
+                <p>Cebu City, Philippines</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <p>&copy; 2024 Leah Bolasco. Designed and coded with care ✨</p>
+        </div>
+    </div>
+</footer>
