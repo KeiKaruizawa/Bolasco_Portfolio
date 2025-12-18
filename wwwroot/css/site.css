@@ -338,7 +338,22 @@ section {
     min-height: 400px; /* Set a minimum height for all cards */
 }
 
-/*
+.section-btn {
+    margin-top: 50px;
+}
+.btn-secondary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 2.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+    /*
 .project-card {
     display: flex;
     gap: 50px;
@@ -414,9 +429,8 @@ section {
     .project-link:hover {
         transform: translateX(5px);
     }*/
-
-/* SKILLS SECTION */
-.skills-section {
+    /* SKILLS SECTION */
+    .skills-section {
     background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
 }
 

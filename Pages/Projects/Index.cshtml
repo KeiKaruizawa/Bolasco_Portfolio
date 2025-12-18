@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "My Projects";
+    Layout = "_Layout";
 }
 
 <style>
@@ -147,7 +148,8 @@
     }
 </style>
 
-<div class="container">
+<div class="container mt-5 pt-5">
+
     @if (Model.Project.Any())
     {
         <div class="row g-4">
@@ -155,12 +157,11 @@
             {
                 <div class="col-md-6 col-lg-4">
                     <div class="card project-card h-100">
-                        @* Display image if exists *@
-                        @if (item.ImageData != null && item.ImageData.Length > 0)
+
+                        @if (item.ImageData != null)
                         {
-                            <img src="@Url.Page("Index", "Image", new { id = item.ProjectId })"
-                                 class="project-img"
-                                 alt="@item.Title" />
+                            <img src="data:@item.ImageType;base64,@(Convert.ToBase64String(item.ImageData))"
+                                 class="project-img" alt="@item.Title" />
                         }
                         else
                         {
@@ -176,13 +177,11 @@
                             @if (!string.IsNullOrEmpty(item.TechnologyUsed))
                             {
                                 <div class="tech-stack">
-                                    <small class="text-muted">
-                                        <strong>Tech Stack:</strong> @item.TechnologyUsed
-                                    </small>
+                                    <small class="text-muted">@item.TechnologyUsed</small>
                                 </div>
                             }
 
-                            <p class="card-text mb-0">
+                            <p class="card-text">
                                 <small class="text-muted">
                                     Released: @item.ReleasedDate.ToString("MMM dd, yyyy")
                                 </small>
@@ -192,7 +191,8 @@
                         <div class="card-footer bg-white border-0 pt-0">
                             @if (!string.IsNullOrEmpty(item.ProjectUrl))
                             {
-                                <a href="@item.ProjectUrl" target="_blank"
+                                <a href="@item.ProjectUrl"
+                                   target="_blank"
                                    class="btn btn-live-project w-100 mb-2">
                                     View Live Project
                                 </a>
@@ -200,17 +200,13 @@
 
                             <div class="d-flex gap-2">
                                 <a asp-page="./Edit" asp-route-id="@item.ProjectId"
-                                   class="btn btn-edit btn-action flex-fill">
-                                    Edit
-                                </a>
+                                   class="btn btn-edit btn-action flex-fill">Edit</a>
+
                                 <a asp-page="./Details" asp-route-id="@item.ProjectId"
-                                   class="btn btn-details btn-action flex-fill">
-                                    View
-                                </a>
+                                   class="btn btn-details btn-action flex-fill">View</a>
+
                                 <a asp-page="./Delete" asp-route-id="@item.ProjectId"
-                                   class="btn btn-delete btn-action">
-                                    Delete
-                                </a>
+                                   class="btn btn-delete btn-action">Delete</a>
                             </div>
                         </div>
                     </div>
@@ -223,7 +219,7 @@
         <div class="empty-state">
             <div class="empty-state-icon">📂</div>
             <h2 class="mb-3">No Projects Yet</h2>
-            <p class="lead text-muted mb-4">Start building your portfolio by creating your first project!</p>
+
             <a asp-page="Create" class="btn btn-create btn-lg">
                 <i class="bi bi-plus-circle"></i> Create New Project
             </a>
