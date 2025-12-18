@@ -13,15 +13,19 @@ namespace BolascoProel4.Pages.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly BolascoProel4.Data.BolascoProel4Context _context;
+        private readonly BolascoProel4Context _context;
 
-        public EditModel(BolascoProel4.Data.BolascoProel4Context context)
+        public EditModel(BolascoProel4Context context)
         {
             _context = context;
         }
 
         [BindProperty]
         public Project Project { get; set; } = default!;
+
+        // For image upload
+        [BindProperty]
+        public IFormFile? ImageFile { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,7 +34,7 @@ namespace BolascoProel4.Pages.Projects
                 return NotFound();
             }
 
-            var project =  await _context.Project.FirstOrDefaultAsync(m => m.ProjectId == id);
+            var project = await _context.Project.FirstOrDefaultAsync(m => m.ProjectId == id);
             if (project == null)
             {
                 return NotFound();
@@ -39,13 +43,33 @@ namespace BolascoProel4.Pages.Projects
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            // Update image if new one uploaded
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await ImageFile.CopyToAsync(memoryStream);
+                    Project.ImageData = memoryStream.ToArray();
+                    Project.ImageType = ImageFile.ContentType;
+                }
+            }
+            else
+            {
+                // Keep existing image if no new image uploaded
+                var existingProject = await _context.Project.AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.ProjectId == Project.ProjectId);
+                if (existingProject != null)
+                {
+                    Project.ImageData = existingProject.ImageData;
+                    Project.ImageType = existingProject.ImageType;
+                }
             }
 
             _context.Attach(Project).State = EntityState.Modified;

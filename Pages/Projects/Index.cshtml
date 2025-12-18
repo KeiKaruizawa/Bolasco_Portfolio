@@ -2,71 +2,231 @@
 @model BolascoProel4.Pages.Projects.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Projects";
 }
 
-<h1>Project Records</h1>
+<style>
+    .project-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Tools Used
-            </th>
-            <th>
-                Project Link
-            </th>
-            <th>
-                Image
-            </th>
-            <th>
-                Image Type
-            </th>
-            <th>
-                Released Date
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Project) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TechnologyUsed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageData)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleasedDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ProjectId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ProjectId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ProjectId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+    .project-img {
+        height: 250px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .project-placeholder {
+        height: 250px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .badge-featured {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+    }
+
+    .card-title {
+        color: #2d3748;
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .card-text {
+        color: #4a5568;
+        line-height: 1.6;
+    }
+
+    .tech-stack {
+        background: #f7fafc;
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin: 0.8rem 0;
+    }
+
+    .btn-action {
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+    }
+
+        .btn-edit:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+    .btn-details {
+        background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+        color: white;
+        border: none;
+    }
+
+        .btn-details:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        border: none;
+    }
+
+        .btn-delete:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+    .btn-create {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+    }
+
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+
+    .btn-live-project {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+        font-weight: 600;
+    }
+
+        .btn-live-project:hover {
+            background: #667eea;
+            color: white;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 20px;
+        margin: 2rem 0;
+    }
+
+    .empty-state-icon {
+        font-size: 5rem;
+        margin-bottom: 1rem;
+        opacity: 0.6;
+    }
+</style>
+
+<div class="container">
+    @if (Model.Project.Any())
+    {
+        <div class="row g-4">
+            @foreach (var item in Model.Project)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card project-card h-100">
+                        @* Display image if exists *@
+                        @if (item.ImageData != null && item.ImageData.Length > 0)
+                        {
+                            <img src="@Url.Page("Index", "Image", new { id = item.ProjectId })"
+                                 class="project-img"
+                                 alt="@item.Title" />
+                        }
+                        else
+                        {
+                            <div class="project-placeholder">
+                                <span>📷 No Image</span>
+                            </div>
+                        }
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@item.Title</h5>
+                            <p class="card-text flex-grow-1">@item.Description</p>
+
+                            @if (!string.IsNullOrEmpty(item.TechnologyUsed))
+                            {
+                                <div class="tech-stack">
+                                    <small class="text-muted">
+                                        <strong>Tech Stack:</strong> @item.TechnologyUsed
+                                    </small>
+                                </div>
+                            }
+
+                            <p class="card-text mb-0">
+                                <small class="text-muted">
+                                    Released: @item.ReleasedDate.ToString("MMM dd, yyyy")
+                                </small>
+                            </p>
+                        </div>
+
+                        <div class="card-footer bg-white border-0 pt-0">
+                            @if (!string.IsNullOrEmpty(item.ProjectUrl))
+                            {
+                                <a href="@item.ProjectUrl" target="_blank"
+                                   class="btn btn-live-project w-100 mb-2">
+                                    View Live Project
+                                </a>
+                            }
+
+                            <div class="d-flex gap-2">
+                                <a asp-page="./Edit" asp-route-id="@item.ProjectId"
+                                   class="btn btn-edit btn-action flex-fill">
+                                    Edit
+                                </a>
+                                <a asp-page="./Details" asp-route-id="@item.ProjectId"
+                                   class="btn btn-details btn-action flex-fill">
+                                    View
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@item.ProjectId"
+                                   class="btn btn-delete btn-action">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">📂</div>
+            <h2 class="mb-3">No Projects Yet</h2>
+            <p class="lead text-muted mb-4">Start building your portfolio by creating your first project!</p>
+            <a asp-page="Create" class="btn btn-create btn-lg">
+                <i class="bi bi-plus-circle"></i> Create New Project
+            </a>
+        </div>
+    }
+</div>

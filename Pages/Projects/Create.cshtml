@@ -2,63 +2,215 @@
 @model BolascoProel4.Pages.Projects.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Project";
 }
 
-<h1>Create</h1>
+<style>
+    .create-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin: -2rem -15px 2rem -15px;
+        border-radius: 0 0 30px 30px;
+    }
 
-<h4>Project</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Project.Title" class="control-label"></label>
-                <input asp-for="Project.Title" class="form-control" />
-                <span asp-validation-for="Project.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Project.Description" class="control-label"></label>
-                <input asp-for="Project.Description" class="form-control" />
-                <span asp-validation-for="Project.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Project.TechnologyUsed" class="control-label"></label>
-                <input asp-for="Project.TechnologyUsed" class="form-control" />
-                <span asp-validation-for="Project.TechnologyUsed" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Project.ProjectUrl" class="control-label"></label>
-                <input asp-for="Project.ProjectUrl" class="form-control" />
-                <span asp-validation-for="Project.ProjectUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Project.ImageData" class="control-label"></label>
-                <input asp-for="Project.ImageData" class="form-control" />
-                <span asp-validation-for="Project.ImageData" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Project.ImageType" class="control-label"></label>
-                <input asp-for="Project.ImageType" class="form-control" />
-                <span asp-validation-for="Project.ImageType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Project.ReleasedDate" class="control-label"></label>
-                <input asp-for="Project.ReleasedDate" class="form-control" />
-                <span asp-validation-for="Project.ReleasedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    .form-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        padding: 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem 2.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+    }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+
+    .btn-back {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-back:hover {
+            background: #667eea;
+            color: white;
+        }
+
+    .file-upload-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+        .file-upload-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    .file-upload-label {
+        display: block;
+        padding: 1rem;
+        background: #f7fafc;
+        border: 2px dashed #cbd5e0;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-upload-label:hover {
+            background: #edf2f7;
+            border-color: #667eea;
+        }
+
+    .section-title {
+        color: #667eea;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid #667eea;
+    }
+</style>
+
+<div class="create-header text-center">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Create New Project</h1>
+        <p class="lead">Add a new project to your portfolio</p>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="form-card">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <h4 class="section-title">Project Information</h4>
+
+                    <div class="mb-4">
+                        <label asp-for="Project.Title" class="form-label">Project Title *</label>
+                        <input asp-for="Project.Title" class="form-control" placeholder="Enter project title" />
+                        <span asp-validation-for="Project.Title" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Project.Description" class="form-label">Description *</label>
+                        <textarea asp-for="Project.Description" class="form-control"
+                                  placeholder="Describe your project in detail..."></textarea>
+                        <span asp-validation-for="Project.Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Project.TechnologyUsed" class="form-label">Tools Used</label>
+                        <input asp-for="Project.TechnologyUsed" class="form-control"
+                               placeholder="e.g., HTML, CSS, JavaScript, Bootstrap,, MySQL" />
+                        <span asp-validation-for="Project.TechnologyUsed" class="text-danger small"></span>
+                    </div>
+
+                    <h4 class="section-title mt-5">Links</h4>
+
+                    <div class="mb-4">
+                        <label asp-for="Project.ProjectUrl" class="form-label">Project URL</label>
+                        <input asp-for="Project.ProjectUrl" class="form-control"
+                               placeholder="https://your-project.com" />
+                        <span asp-validation-for="Project.ProjectUrl" class="text-danger small"></span>
+                    </div>
+
+                    <h4 class="section-title mt-5">Project Image</h4>
+
+                    <div class="mb-4">
+                        <label class="form-label">Upload Image</label>
+                        <div class="file-upload-wrapper">
+                            <label class="file-upload-label">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📸</div>
+                                <strong>Click to upload</strong> or drag and drop<br>
+                                <small class="text-muted">PNG, JPG, GIF up to 5MB</small>
+                            </label>
+                            <input asp-for="ImageFile" type="file" accept="image/*" class="form-control"
+                                   onchange="displayFileName(this)" />
+                        </div>
+                        <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                        <div id="file-name" class="mt-2 text-muted small"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Project.ReleasedDate" class="form-label">Release Date</label>
+                        <input asp-for="Project.ReleasedDate" class="form-control" type="date" />
+                        <span asp-validation-for="Project.ReleasedDate" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-3 justify-content-end mt-5">
+                        <a asp-page="Index" class="btn btn-back">
+                        Back to List
+                        </a>
+                        <button type="submit" class="btn btn-submit">
+                        Create Project
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
+<script>
+    function displayFileName(input) {
+        const fileName = input.files[0]?.name;
+        const fileNameDiv = document.getElementById('file-name');
+        if (fileName) {
+            fileNameDiv.innerHTML = '<strong>Selected:</strong> ' + fileName;
+            fileNameDiv.style.color = '#667eea';
+        }
+    }
+</script>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
