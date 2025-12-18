@@ -150,6 +150,13 @@
 
 <div class="container mt-5 pt-5">
 
+    <!-- Always visible Create Project button -->
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-page="Create" class="btn btn-create btn-lg">
+            <i class="bi bi-plus-circle"></i> Create New Project
+        </a>
+    </div>
+
     @if (Model.Project.Any())
     {
         <div class="row g-4">
@@ -219,10 +226,6 @@
         <div class="empty-state">
             <div class="empty-state-icon">📂</div>
             <h2 class="mb-3">No Projects Yet</h2>
-
-            <a asp-page="Create" class="btn btn-create btn-lg">
-                <i class="bi bi-plus-circle"></i> Create New Project
-            </a>
         </div>
     }
 </div>
